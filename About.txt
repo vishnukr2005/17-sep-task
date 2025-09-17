@@ -1,0 +1,2 @@
+my sample project for a short time hackathon session
+it having multiple functions 
