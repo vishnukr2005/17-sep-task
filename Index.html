@@ -1,101 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Student Time Table</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            margin: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #888;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #4682b4;
-            color: white;
-        }
-        td {
-            background-color: #e6f2ff;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Train Ticket Reservation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .summary {
+      background: #e8f5e9;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .summary h3 {
+      margin-top: 0;
+      color: #2e7d32;
+    }
+  </style>
 </head>
 <body>
-    <h1>Student Time Table</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Time</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>8:00 AM - 9:00 AM</td>
-                <td>Mathematics</td>
-                <td>English</td>
-                <td>Physics</td>
-                <td>Chemistry</td>
-                <td>Biology</td>
-            </tr>
-            <tr>
-                <td>9:00 AM - 10:00 AM</td>
-                <td>History</td>
-                <td>Mathematics</td>
-                <td>Computer Science</td>
-                <td>English</td>
-                <td>Physics</td>
-            </tr>
-            <tr>
-                <td>10:00 AM - 11:00 AM</td>
-                <td>Geography</td>
-                <td>History</td>
-                <td>Mathematics</td>
-                <td>Biology</td>
-                <td>Computer Science</td>
-            </tr>
-            <tr>
-                <td>11:00 AM - 12:00 PM</td>
-                <td>Break</td>
-                <td>Break</td>
-                <td>Break</td>
-                <td>Break</td>
-                <td>Break</td>
-            </tr>
-            <tr>
-                <td>12:00 PM - 1:00 PM</td>
-                <td>Chemistry</td>
-                <td>Physics</td>
-                <td>English</td>
-                <td>History</td>
-                <td>Mathematics</td>
-            </tr>
-            <tr>
-                <td>1:00 PM - 2:00 PM</td>
-                <td>Biology</td>
-                <td>Geography</td>
-                <td>Physical Education</td>
-                <td>Computer Science</td>
-                <td>Art</td>
-            </tr>
-        </tbody>
-    </table>
+
+  <div class="container">
+    <h2>Train Ticket Reservation</h2>
+    <form id="reservationForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="source">From Station:</label>
+      <select id="source" required>
+        <option value="">Select Source</option>
+        <option value="New York">New York</option>
+        <option value="Chicago">Chicago</option>
+        <option value="San Francisco">San Francisco</option>
+        <option value="Los Angeles">Los Angeles</option>
+      </select>
+
+      <label for="destination">To Station:</label>
+      <select id="destination" required>
+        <option value="">Select Destination</option>
+        <option value="New York">New York</option>
+        <option value="Chicago">Chicago</option>
+        <option value="San Francisco">San Francisco</option>
+        <option value="Los Angeles">Los Angeles</option>
+      </select>
+
+      <label for="date">Travel Date:</label>
+      <input type="date" id="date" required />
+
+      <label for="class">Class:</label>
+      <select id="class" required>
+        <option value="">Select Class</option>
+        <option value="First">First Class</option>
+        <option value="Second">Second Class</option>
+        <option value="Sleeper">Sleeper</option>
+      </select>
+
+      <button type="submit">Reserve Ticket</button>
+    </form>
+
+    <div class="summary" id="summary">
+      <h3>Reservation Summary</h3>
+      <p id="summaryText"></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const source = document.getElementById('source').value;
+      const destination = document.getElementById('destination').value;
+      const date = document.getElementById('date').value;
+      const travelClass = document.getElementById('class').value;
+
+      if (source === destination) {
+        alert("Source and destination cannot be the same.");
+        return;
+      }
+
+      const summaryText = `
+        Passenger Name: ${name}<br/>
+        From: ${source}<br/>
+        To: ${destination}<br/>
+        Date: ${date}<br/>
+        Class: ${travelClass}
+      `;
+
+      document.getElementById('summaryText').innerHTML = summaryText;
+      document.getElementById('summary').style.display = 'block';
+    });
+  </script>
+
 </body>
 </html>
